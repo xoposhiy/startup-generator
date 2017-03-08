@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+	<meta charset="utf-8">
+	<title>εύρηκα!</title>
+	<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+	<script src="https://unpkg.com/vue"></script>
+	<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+	<style>
+		.btn-xlg {
+			font-size: 48px;
+			padding: 20px 45px;
+		}
+		@media all and (max-width: 720px) { 
+		  .btn-xlg {
+			font-size: 20px;
+			padding: 10px 30px;
+		  }
+		  h2 {
+			font-size: 18px;
+		  }
+		}		
+		body {
+			height: 100vh;
+			margin:0;
+			padding: 0;
+			position:relative;
+		}
+		#root {
+			position:absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -80%);
+			text-align: center;
+		}
+		.idea{
+			margin-top: 50px;
+			margin-bottom: 50px;
+		}
+		.great-idea {
+			font-size: 18px;
+		}
+		.references {
+			margin-top: 50px;
+			margin-bottom: 50px;
+			font-size: 18px;
+		}
+		
+	</style>
+</head>
+
+	<body>
+		<div id="root">
+			<div v-if="ideasCount>7" class="references">
+				О, я вижу серьёзный настрой!
+				Посмотри <a target="blank" href="https://staff.skbkontur.ru/group/4634?action=discussions&id=24f9708e212e4ac1bc05a57cb170547c">эту на подборку книг</a> по проверке идей и старту проектов.
+			</div>
+			<button v-on:click="generate" class="btn btn-primary btn-xlg">{{button_name}}</button>
+			<h2 class="idea" v-on:click="clickIdea">{{idea}}</h2>
+			<div v-if="ideasCount>0" v-on:click="clickIdea" class="great-idea">
+				Хорошая идея? Скорее же, <a v-bind:href="mailto">отправьте её в бизнес-инкубатор</a>!
+			</div>
+		</div>
+	</body>
+	<script src="generator.js" type="text/babel"></script>
+	<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function() {
+            try {
+                w.yaCounter43313614 = new Ya.Metrika({
+                    id:43313614,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true
+                });
+            } catch(e) { }
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+            s = d.createElement("script"),
+            f = function () { n.parentNode.insertBefore(s, n); };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else { f(); }
+    })(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/43313614" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+</html>
