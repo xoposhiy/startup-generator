@@ -1,0 +1,1 @@
+[Генератор стартапов LIVE](http://xoposhiy.github.io/idea/)
