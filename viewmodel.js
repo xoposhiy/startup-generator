@@ -95,7 +95,8 @@ var vm = new Vue({
 			initializeFirebase(this)
 				.then(_ => saveLikeToFirebase(this.idea))
 				.then(_ => {
-					this.idea = generate(this.ideasCount++)
+					this.idea = generate(this.ideasCount++);
+					this.showLastIdeasFeed();
 				});
 		},
 		markIdeaAsBad: function (event) {
