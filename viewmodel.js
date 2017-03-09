@@ -89,8 +89,9 @@ var vm = new Vue({
 		markIdeaAsBad: function (event) {
 			this.idea = generate(this.ideasCount++);
 		},
-		addLikeToIdea: idea => {
-			// TODO: Implement
+		addLikeToIdea: function(idea) {
+			initializeFirebase(this)
+				.then(_ => saveLikeToFirebase(idea))
 		}
 	}
 });
