@@ -11,17 +11,19 @@ String.prototype.capitalizeFirstLetter = function () {
 	return this.charAt(0).toUpperCase() + this.slice(1);
 }
 
+function makeFemale(phrase){
+	return phrase.replace(/(ый|ий) /g, 'ая ').replace(/(ый|ий)$/g, 'ая');
+}
+
 function postProcess(parts){
-	if (parts.what.endsWith('!')){ // женский род
-		if (parts.which !== undefined)
-			parts.which = parts.which.replace(/(ый|ий) /g, 'ая ').replace(/(ый|ий)$/g, 'ая');
+	// женский род
+	if (parts.what.endsWith('!')){
+		parts.female = true;
 		parts.what = parts.what.replace('!', '');
+		if (parts.which !== undefined)
+			parts.which = makeFemale(parts.which);
 	}
-	let res = [parts.which, parts.what, parts.forWhom, parts.withWhat].filter(i => i !== undefined);
-	let phrase = res.join(' ');
-	for(let p of ['c', 'для', 'в', 'со', 'по'])
-		phrase = phrase.replace(p + ' ', p + '&nbsp;');
-	return phrase.capitalizeFirstLetter();
+	return parts;
 }
 
 function concat(parts){
@@ -42,9 +44,13 @@ function selectFrom(array){
 
 
 var data = {
-	idea: '',
-	ideasCount: 0
+	ideasCount: 1,
+	idea: generate(1)
 };
+
+
+
+
 
 var vm = new Vue({
 	el: "#root",
@@ -60,6 +66,25 @@ var vm = new Vue({
 	methods: {
 		clickIdea: function(event){
 			yaCounter43313614.reachGoal("clickIdea", {idea: this.idea, count: this.ideasCount});
+		},
+		changeWhich: function(event){
+			let whichPart = selectFrom(which);
+			if (this.idea.female) whichPart = makeFemale(whichPart);
+			this.idea.which = whichPart;
+			this.ideasCount++;
+		},
+		changeWhat: function(event){
+			this.idea.what = selectFrom(what);
+			postProcess(this.idea);
+			this.ideasCount++;
+		},
+		changeForWhom: function(event){
+			this.idea.forWhom = selectFrom(forWhom);
+			this.ideasCount++;
+		},
+		changeWithWhat: function(event){
+			this.idea.withWhat = selectFrom(withWhat);
+			this.ideasCount++;
 		},
 		generate: function(event){
 			this.idea = generate(this.ideasCount);

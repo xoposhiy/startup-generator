@@ -1,4 +1,4 @@
-let which = shuffle([
+let which = prepare([
 	'гипертекстовый векторный',
 	'интегрированный с Декларантом',
 	'интегрированный с Гособлаком',
@@ -24,7 +24,7 @@ let which = shuffle([
 	'мимимишный',
 ]);
 
-let withWhat = shuffle([
+let withWhat = prepare([
 	'с подпиской на год',
 	'с показом рекламы',
 	'с краудфандингом',
@@ -72,7 +72,7 @@ let withWhat = shuffle([
 	'со скорингом',
 ]);
 
-let what = shuffle([
+let what = prepare([
 	'документооборот',
 	'бухгалтерский учёт',
 	'товароучёт',
@@ -110,7 +110,7 @@ let what = shuffle([
 	'социальная сеть!',
 ]);
 
-let forWhom = shuffle([
+let forWhom = prepare([
 	'для бизнес-аналитиков',
 	'для гиков',
 	'для обладателей носимых устройств',
@@ -170,6 +170,18 @@ let forWhom = shuffle([
 	'для рекрутёров',
 	'для одиноких сердец',
 ]);
+
+function prepare(array){
+	var res = shuffle(array).map(p => replaceNbsp(p));
+	console.log(res);
+	return res;
+}
+
+function replaceNbsp(t){
+	for(let p of ['c', 'для', 'в', 'со', 'по'])
+		t = t.replace(p + ' ', p + '&nbsp;');
+	return t;
+}
 
 function shuffle(a) {
 	var j, x, i;
