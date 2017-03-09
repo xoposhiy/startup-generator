@@ -5,7 +5,7 @@ body {
     font: normal 12pt 'Segoe UI', sans-serif;
     line-height: 1.5em;
 
-    margin: 6em 2em 3em;
+    margin: 8em 2em;
 }
 
 .content {
@@ -32,11 +32,11 @@ body {
     cursor: pointer;
 
     position: absolute;
-    margin-left: -6em;
+    margin-left: -6.5em;
     margin-top: -0.125em;
     padding: 0 0.5em 0 1em;
 
-    width: 3em;
+    width: 3.75em;
 
     transition: 0.25s;
 }
@@ -95,11 +95,11 @@ body {
 }
 
 .idea__buttons__button_good {
-    background: #efe;
+    background: #dfd;
 }
 
 .idea__buttons__button_bad {
-    background: #fee;
+    background: #fdd;
 }
 
 .feed {
@@ -118,6 +118,37 @@ body {
 
     height: auto;
     width: 10000px;
+}
+
+.feed__title {
+    display: flex;
+    flex-direction: row;
+
+    margin-bottom: 1.5em;
+}
+
+.feed__title__switch {
+    border: solid 1px #eee;
+    border-radius: 2em;
+
+    cursor: pointer;
+
+    color: #666;
+
+    font-size: 0.8em;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+
+    margin-right: 1em;
+    padding: 0.75em 1.5em;
+
+    transition: 0.25s;
+}
+
+.feed__title__switch_active {
+    border: solid 1px #ccc;
+
+    transition: 0.25s;
 }
 
 .emoji {

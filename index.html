@@ -28,7 +28,11 @@
 		</div>
 
 		<div class="feed">
-			<div class="idea" v-for="idea in bestIdeas">
+			<div class="feed__title" v-if="isFeedShown">
+				<div class="feed__title__switch" v-on:click="showLastIdeasFeed()" v-bind:class="{ 'feed__title__switch_active': lastIdeasFeedShown }">Последние идеи</div>
+				<div class="feed__title__switch" v-on:click="showBestIdeasFeed()" v-bind:class="{ 'feed__title__switch_active': bestIdeasFeedShown }">Лучшие идеи</div>
+			</div>
+			<div class="idea" v-for="idea in feed">
 				<div class="idea__likes" v-on:click="addLikeToIdea(idea)">
 					<span class="emoji emoji_rocket"></span><span v-if="idea.likes>1">×&thinsp;{{idea.likes}}</span>
 				</div>

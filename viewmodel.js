@@ -49,12 +49,24 @@ var data = {
 	ideasCount: 1,
 	idea: generate(1),
 	lastIdeas: null,
-	bestIdeas: null
+	bestIdeas: null,
+	lastIdeasFeedShown: true,
+	bestIdeasFeedShown: false
 };
 
 var vm = new Vue({
 	el: "#root",
 	data: data,
+	computed: {
+		isFeedShown: function() {
+			return this.lastIdeas !== null && this.lastIdeasFeedShown
+				|| this.bestIdeas !== null && this.bestIdeasFeedShown;
+		},
+		feed: function() {
+			return this.lastIdeasFeedShown ? this.lastIdeas
+			     : this.bestIdeasFeedShown ? this.bestIdeas : [];
+		}
+	},
 	methods: {
 		clickIdea: function(event){
 			yaCounter43328569.reachGoal("clickIdea", {idea: this.idea, count: this.ideasCount});
@@ -92,6 +104,14 @@ var vm = new Vue({
 		addLikeToIdea: function(idea) {
 			initializeFirebase(this)
 				.then(_ => saveLikeToFirebase(idea))
+		},
+		showLastIdeasFeed: function() {
+			this.lastIdeasFeedShown = true;
+			this.bestIdeasFeedShown = false;
+		},
+		showBestIdeasFeed: function() {
+			this.bestIdeasFeedShown = true;
+			this.lastIdeasFeedShown = false;
 		}
 	}
 });
