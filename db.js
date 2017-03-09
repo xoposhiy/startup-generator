@@ -25,15 +25,19 @@ function initializeFirebase(vm){
 	});
 }
 
+Object.values = object => Object.keys(object).map(k => object[k]);
+
 function subscribeLastIdeas(vm){
 	let ideasRef = firebase.database().ref('ideas');
 	ideasRef.orderByChild('lastLikeTime').limitToLast(20).on('value', function(snap){
-		if (snap.val() == null) vm.lastIdeas = [];
-		vm.lastIdeas = Object.values(snap.val()).sort((a, b) => b.lastLikeTime - a.lastLikeTime);
+		let val = snap.val();
+		if (val == null) vm.lastIdeas = [];
+		vm.lastIdeas = Object.values(val).sort((a, b) => b.lastLikeTime - a.lastLikeTime);
 	});
 	ideasRef.orderByChild('likes').limitToLast(20).on('value', function(snap){
-		if (snap.val() == null) vm.bestIdeas = [];
-		vm.bestIdeas = Object.values(snap.val()).sort((a, b) => b.likes - a.likes);
+		let val = snap.val();
+		if (val == null) vm.bestIdeas = [];
+		vm.bestIdeas = Object.values(val).sort((a, b) => b.likes - a.likes);
 	});
 }
 

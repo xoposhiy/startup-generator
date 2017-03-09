@@ -12,10 +12,10 @@
 	<div class="content" id="root">
 		<div class="idea">
 			<div class="idea__name">
-				<div class="idea__name__part" v-html="idea.which"></div>
-				<div class="idea__name__part" v-html="idea.what"></div>
-				<div class="idea__name__part" v-html="idea.withWhat"></div>
-				<div class="idea__name__part" v-html="idea.forWhom"></div>
+				<div class="idea__name__part" v-on:click="changeWhich" v-html="idea.which"></div>
+				<div class="idea__name__part" v-on:click="changeWhat" v-html="idea.what"></div>
+				<div class="idea__name__part" v-on:click="changeWithWhat" v-html="idea.withWhat"></div>
+				<div class="idea__name__part" v-on:click="changeForWhom" v-html="idea.forWhom"></div>
 			</div>
 			<div class="idea__buttons">
 				<div v-on:click="markIdeaAsGood" class="idea__buttons__button idea__buttons__button_good">
