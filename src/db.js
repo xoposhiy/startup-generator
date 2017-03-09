@@ -1,16 +1,16 @@
-  var config = {
-    apiKey: "AIzaSyA6g5MHqNWhIHLypfrxIInXcXGch9w2Odg",
-    authDomain: "startup-generator.firebaseapp.com",
-    databaseURL: "https://startup-generator.firebaseio.com",
-    storageBucket: "startup-generator.appspot.com",
-    messagingSenderId: "416728947602"
-  };
+var config = {
+apiKey: "AIzaSyA6g5MHqNWhIHLypfrxIInXcXGch9w2Odg",
+authDomain: "startup-generator.firebaseapp.com",
+databaseURL: "https://startup-generator.firebaseio.com",
+storageBucket: "startup-generator.appspot.com",
+messagingSenderId: "416728947602"
+};
 
-  let firebaseInitialized = false;
+let firebaseInitialized = false;
 
 const listSize = 10;
 
-function initializeFirebase(vm){
+export function initializeFirebase(vm){
 	if (firebaseInitialized) return Promise.resolve(true);
 	firebase.initializeApp(config);
 	firebaseInitialized = true;
@@ -43,7 +43,7 @@ function subscribeLastIdeas(vm){
 	});
 }
 
-function saveLikeToFirebase(ideaObj){
+export function saveLikeToFirebase(ideaObj){
 	let user = firebase.auth().currentUser;
 	if (user == null) return;
 	let ideaRef = firebase.database().ref('ideas').orderByChild('fullText').equalTo(ideaObj.fullText);

@@ -1,0 +1,28 @@
+{
+  "name": "startup-generator",
+  "version": "1.0.0",
+  "description": "Startup generator",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+	"build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xoposhiy/startup-generator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xoposhiy/startup-generator/issues"
+  },
+  "homepage": "https://github.com/xoposhiy/startup-generator#readme",
+  "devDependencies": {
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.4.0",
+    "webpack": "^2.2.1"
+  },
+  "dependencies": {
+    "vue": "^2.2.2"
+  }
+}

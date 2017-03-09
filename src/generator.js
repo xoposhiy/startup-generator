@@ -1,4 +1,4 @@
-let which = prepare([
+export let which = prepare([
 	'гипертекстовый векторный',
 	'интегрированный с Декларантом',
 	'интегрированный с Гособлаком',
@@ -24,7 +24,7 @@ let which = prepare([
 	'мимимишный',
 ]);
 
-let withWhat = prepare([
+export let withWhat = prepare([
 	'с подпиской на год',
 	'с показом рекламы',
 	'с краудфандингом',
@@ -74,7 +74,7 @@ let withWhat = prepare([
 	
 ]);
 
-let what = prepare([
+export let what = prepare([
 	'документооборот',
 	'бухгалтерский учёт',
 	'товароучёт',
@@ -111,7 +111,7 @@ let what = prepare([
 	'конференция!',
 ]);
 
-let forWhom = prepare([
+export let forWhom = prepare([
 	'для бизнес-аналитиков',
 	'для гиков',
 	'для обладателей носимых устройств',
@@ -183,7 +183,6 @@ function replaceNbsp(name){
 }
 
 function shuffle(a) {
-	return a;
 	var j, x, i;
 	for (i = a.length; i; i--) {
 		j = Math.floor(Math.random() * i);
