@@ -23,6 +23,8 @@ function postProcess(parts){
 		if (parts.which !== undefined)
 			parts.which = makeFemale(parts.which);
 	}
+	if (parts.which !== undefined) parts.which = parts.which.capitalizeFirstLetter();
+	else parts.what = parts.what.capitalizeFirstLetter();
 	parts.fullText = [parts.which, parts.what, parts.withWhat, parts.forWhom].join(' ');
 	return parts;
 }
@@ -53,14 +55,6 @@ var data = {
 var vm = new Vue({
 	el: "#root",
 	data: data,
-	computed: {
-		button_name: function() {
-			return this.ideasCount == 0 ? 'Срочно, нужна идея!' : 'Нужна ещё идея!';
-		},
-		mailto: function(){
-			return "mailto:Шифман&cc=Устюжанин&subject=Идея проекта: " + this.idea;
-		}
-	},
 	methods: {
 		clickIdea: function(event){
 			yaCounter43328569.reachGoal("clickIdea", {idea: this.idea, count: this.ideasCount});
@@ -86,22 +80,14 @@ var vm = new Vue({
 			this.ideasCount++;
 		},
 		markIdeaAsGood: function (event) {
-			// Put the idea to the global feed
-			// TODO
-
-			// Generate new idea
-			this.idea = generate(this.ideasCount);
-			this.ideasCount++;
-		},
-		markIdeaAsBad: function (event) {
-			// Generate new idea
-			this.idea = generate(this.ideasCount);
-			this.ideasCount++;
-		},
-		like: function(event) {
 			initializeFirebase(this)
 				.then(_ => saveLikeToFirebase(this.idea))
-				//.then(_ => this.generate(event));
+				.then(_ => {
+					this.idea = generate(this.ideasCount++)
+				});
 		},
+		markIdeaAsBad: function (event) {
+			this.idea = generate(this.ideasCount++);
+		}
 	}
 });
