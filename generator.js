@@ -1,37 +1,3 @@
-function generate(i){
-	let generators = [
-/*		concat(which_k, what, forWhom),
-		concat(which, what_k, forWhom),
-		concat(which, what, forWhom_k),
-		concat(which_k, what, forWhom_k),
-		concat(which_k, what, withWhat),
-		concat(which, what_k, withWhat),
-		concat(which_k, what, forWhom, withWhat),
-		concat(which, what_k, forWhom, withWhat),*/
-		concat(which, what, forWhom),
-		//concat(what, withWhat, forWhom),
-		concat(what, forWhom, withWhat),
-		//concat(what, withWhat, forWhom_k),
-	];
-	return generators[i%generators.length]();
-}
-
-function select(array){
-	let next = array.shift();
-	array.push(next)
-	return next;
-}
-
-function concat(){
-	let args = arguments;
-	return function(){
-		var res = '';
-		for(let arr of args)
-			res = res + ' ' + select(arr);
-		return res;
-	}
-}
-
 let which = shuffle([
 	'гипертекстовый векторный',
 	'интегрированный с Декларантом',
@@ -55,7 +21,7 @@ let which = shuffle([
 	'бесплатный',
 	'условно-бесплатный',
 	'удобный в использовании',
-	'мимимишный'
+	'мимимишный',
 ]);
 
 let withWhat = shuffle([
@@ -141,6 +107,7 @@ let what = shuffle([
 	'клепалка формочек!',
 	'торговая площадка!',
 	'конференция!',
+	'социальная сеть!',
 ]);
 
 let forWhom = shuffle([
@@ -205,40 +172,12 @@ let forWhom = shuffle([
 ]);
 
 function shuffle(a) {
-    var j, x, i;
-    for (i = a.length; i; i--) {
-        j = Math.floor(Math.random() * i);
-        x = a[i - 1];
-        a[i - 1] = a[j];
-        a[j] = x;
-    }
+	var j, x, i;
+	for (i = a.length; i; i--) {
+		j = Math.floor(Math.random() * i);
+		x = a[i - 1];
+		a[i - 1] = a[j];
+		a[j] = x;
+	}
 	return a;
 }
-
-
-var data = {
-	idea: '',
-	ideasCount: 0
-};
-
-var vm = new Vue({
-	el: "#root",
-	data: data,
-	computed: {
-		button_name: function() {
-			return this.ideasCount == 0 ? 'Срочно, нужна идея!' : 'Нужна ещё идея!';
-		},
-		mailto: function(){
-			return "mailto:Шифман&cc=Устюжанин&subject=Идея проекта: " + this.idea;
-		}
-	},
-	methods: {
-		clickIdea: function(event){
-			yaCounter43313614.reachGoal("clickIdea", {idea: this.idea, count: this.ideasCount});
-		},
-		generate: function(event){
-			this.idea = generate(this.ideasCount);
-			this.ideasCount++;
-		}
-	}
-});
