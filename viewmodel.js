@@ -86,7 +86,16 @@ var vm = new Vue({
 			this.idea.withWhat = selectFrom(withWhat);
 			this.ideasCount++;
 		},
-		generate: function(event){
+		markIdeaAsGood: function (event) {
+			// Put the idea to the global feed
+			// TODO
+
+			// Generate new idea
+			this.idea = generate(this.ideasCount);
+			this.ideasCount++;
+		},
+		markIdeaAsBad: function (event) {
+			// Generate new idea
 			this.idea = generate(this.ideasCount);
 			this.ideasCount++;
 		}

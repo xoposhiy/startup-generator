@@ -3,32 +3,33 @@
 <!-- https://github.com/xoposhiy/startup-generator -->
 <head>
 	<meta charset="utf-8">
-	<title>εύρηκα!</title>
+	<title>Идея для стартапа</title>
 	<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 	<script src="https://unpkg.com/vue"></script>
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
-
-	<body>
-		<div id="root">
-			<div v-if="ideasCount>7" class="references">
-				О, я вижу серьёзный настрой!
-				Посмотри <a target="blank" href="https://staff.skbkontur.ru/group/4634?action=discussions&id=24f9708e212e4ac1bc05a57cb170547c">эту на подборку книг</a> по проверке идей и старту проектов.
+<body>
+	<div class="idea" id="root">
+		<div class="idea__title"><span class="emoji emoji_light-bulb"></span>Идея для стартапа</div>
+		<div class="idea__name">
+			<span v-html="idea.which"></span>
+			<span v-html="idea.what"></span>
+			<span v-html="idea.withWhat"></span>
+			<span v-html="idea.forWhom"></span>
+		</div>
+		<div class="idea__buttons">
+			<div v-on:click="markIdeaAsGood" class="idea__buttons__button idea__buttons__button_good">
+				<span class="emoji emoji_rocket"></span>Взлетит!
 			</div>
-			<button v-on:click="generate" class="btn btn-primary btn-xlg">{{button_name}}</button>
-			<div>
-				<span class="idea which" v-on:click="changeWhich" v-html="idea.which"></span>
-				<span class="idea what" v-on:click="changeWhat" v-html="idea.what"></span>
-				<span class="idea withWhat" v-on:click="changeWithWhat" v-html="idea.withWhat"></span>
-				<span class="idea forWhom" v-on:click="changeForWhom" v-html="idea.forWhom"></span>
-			</div>
-			<div v-if="ideasCount>0" v-on:click="clickIdea" class="great-idea">
-				Хорошая идея? Скорее же, <a v-bind:href="mailto">отправьте её в бизнес-инкубатор</a>!
+			<div v-on:click="markIdeaAsGood" class="idea__buttons__button idea__buttons__button_bad">
+				<span class="emoji emoji_game-die"></span>Не взлетит!
 			</div>
 		</div>
-	</body>
+	</div>
+
 	<script src="generator.js" type="text/babel"></script>
 	<script src="viewmodel.js" type="text/babel"></script>
 
 	<!-- Yandex.Metrika counter --> <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter43328569 = new Ya.Metrika({ id:43328569, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, trackHash:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/43328569" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
+</body>
 </html>

@@ -1,45 +1,74 @@
-.btn-xlg {
-    font-size: 48px;
-    padding: 20px 45px;
-}
-
-@media all and (max-width: 720px) {
-    .btn-xlg {
-        font-size: 20px;
-        padding: 10px 30px;
-    }
-
-    h2 {
-        font-size: 18px;
-    }
-}
-
 body {
-    height: 100vh;
-    margin:0;
-    padding: 0;
-    position:relative;
-}
-
-#root {
-    position:absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -80%);
-    text-align: center;
+    background: rgb(240, 239, 237);
+    color: #333;
+    font: normal 16pt 'Segoe UI', sans-serif;
+    line-height: 1.5em;
+    margin: 3em 2em;
 }
 
 .idea {
-    margin-top: 50px;
-    margin-bottom: 50px;
+    background: #fff;
+    border: solid 1px #ddd;
+    box-shadow: 0 1.5vw 2.5vw #ccc;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+    text-align: center;
 }
 
-.great-idea {
-    font-size: 18px;
+.idea__title {
+    background: #f6f6f6;
+    border-bottom: solid 1px #ddd;
+    line-height: 3em;
+    padding-bottom: 0.25em;
 }
 
-.references {
-    margin-top: 50px;
-    margin-bottom: 50px;
-    font-size: 18px;
+.idea__name {
+    height: 6em;
+    line-height: 1.5em;
+    padding: 1em 2em;
+}
+
+.idea__buttons {
+    display: flex;
+    flex-direction: row;
+}
+
+.idea__buttons__button {
+    border-top: solid 1px #ddd;
+    cursor: pointer;
+    flex: 1;
+    line-height: 3em;
+    padding-bottom: 0.25em;
+}
+
+.idea__buttons__button_good {
+    background: #efe;
+}
+
+.idea__buttons__button_bad {
+    background: #fee;
+}
+
+.emoji {
+    display: inline-block;
+    position: relative;
+    top: 0.25em;
+    right: 0.25em;
+    height: 1.25em;
+    width: 1.25em;
+}
+
+.emoji_light-bulb {
+    background: url("https://twemoji.maxcdn.com/2/svg/1f4a1.svg") no-repeat center center;
+}
+
+.emoji_rocket {
+    background: url("https://twemoji.maxcdn.com/2/svg/1f680.svg") no-repeat center center;
+}
+
+.emoji_game-die {
+    background: url("https://twemoji.maxcdn.com/2/svg/1f3b2.svg") no-repeat center center;
 }
