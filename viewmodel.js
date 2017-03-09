@@ -65,7 +65,7 @@ var vm = new Vue({
 	},
 	methods: {
 		clickIdea: function(event){
-			yaCounter43313614.reachGoal("clickIdea", {idea: this.idea, count: this.ideasCount});
+			yaCounter43328569.reachGoal("clickIdea", {idea: this.idea, count: this.ideasCount});
 		},
 		changeWhich: function(event){
 			let whichPart = selectFrom(which);
