@@ -9,20 +9,23 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-	<div class="idea" id="root">
-		<div class="idea__title"><span class="emoji emoji_light-bulb"></span>Идея для стартапа</div>
-		<div class="idea__name">
-			<span v-html="idea.which"></span>
-			<span v-html="idea.what"></span>
-			<span v-html="idea.withWhat"></span>
-			<span v-html="idea.forWhom"></span>
-		</div>
-		<div class="idea__buttons">
-			<div v-on:click="markIdeaAsGood" class="idea__buttons__button idea__buttons__button_good">
-				<span class="emoji emoji_rocket"></span>Взлетит!
+	<div class="content" id="root">
+		<div class="idea">
+			<div class="idea__name">
+				<div class="idea__name__part" v-html="idea.which"></div>
+				<div class="idea__name__part" v-html="idea.what"></div>
+				<div class="idea__name__part" v-html="idea.withWhat"></div>
+				<div class="idea__name__part" v-html="idea.forWhom"></div>
 			</div>
-			<div v-on:click="markIdeaAsGood" class="idea__buttons__button idea__buttons__button_bad">
-				<span class="emoji emoji_game-die"></span>Не взлетит!
+			<div class="idea__buttons">
+				<div v-on:click="markIdeaAsGood" class="idea__buttons__button idea__buttons__button_good">
+					<span class="emoji emoji_rocket"></span>Взлетит!
+				</div>
+				<div v-on:click="markIdeaAsGood" class="idea__buttons__button idea__buttons__button_bad">
+					<span class="emoji emoji_game-die"></span>Не взлетит!
+				</div>
+			</div>
+		</div>
 			</div>
 		</div>
 	</div>
