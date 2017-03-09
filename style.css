@@ -2,7 +2,7 @@ body {
     background: rgb(240, 239, 237);
     color: #333;
 
-    font: normal 16pt 'Segoe UI', sans-serif;
+    font: normal 12pt 'Segoe UI', sans-serif;
     line-height: 1.5em;
 
     margin: 6em 2em 3em;
@@ -15,20 +15,43 @@ body {
     max-width: 600px;
 }
 
+[v-cloak] {
+    display: none;
+}
+
 .idea {
     text-align: center;
 }
 
 .idea__likes {
+    background: #fff;
+
+    border-radius: 2em;
+    box-shadow: 0 1.5vw 2.5vw #ddd;
+
+    cursor: pointer;
+
     position: absolute;
-    margin-left: -4em;
-    margin-top: 1em;
-    width: 5em;
+    margin-left: -6em;
+    margin-top: -0.125em;
+    padding: 0 0.5em 0 1em;
+
+    opacity: 0.5;
+
+    width: 3em;
+
+    transition: 0.25s;
+}
+
+.idea__likes:hover {
+    opacity: 1;
 }
 
 .idea__name {
     font-size: 1.5em;
     line-height: 1.5em;
+
+    height: 4em;
 }
 
 .idea__name__part {
@@ -42,7 +65,7 @@ body {
 }
 
 .idea__name__part:hover {
-    color: #696;
+    color: #c66;
 }
 
 .idea__buttons {
@@ -55,9 +78,14 @@ body {
 .idea__buttons__button {
     border-radius: 2em;
     box-shadow: 0 1.5vw 2.5vw #ddd;
+
     cursor: pointer;
+
     flex: 1;
+
+    font-size: 1.25em;
     line-height: 3em;
+
     padding-bottom: 0.25em;
     margin: 0 1em;
 
@@ -76,6 +104,23 @@ body {
 
 .idea__buttons__button_bad {
     background: #fee;
+}
+
+.feed {
+    margin-top: 8em;
+}
+
+.feed .idea {
+    text-align: left;
+
+    margin-bottom: 0.75em;
+}
+
+.feed .idea__name {
+    font-size: 1em;
+
+    height: auto;
+    width: 10000px;
 }
 
 .emoji {

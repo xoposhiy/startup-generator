@@ -9,7 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-	<div class="content" id="root">
+	<div class="content" id="root" v-cloak>
 		<div class="idea">
 			<div class="idea__name">
 				<div class="idea__name__part" v-on:click="changeWhich" v-html="idea.which"></div>
@@ -26,6 +26,18 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="feed">
+			<div class="idea" v-for="idea in bestIdeas">
+				<div class="idea__likes" v-on:click="addLikeToIdea(idea)">
+					<span class="emoji emoji_rocket"></span><span v-if="idea.likes>1">×&thinsp;{{idea.likes}}</span>
+				</div>
+				<div class="idea__name">
+					<span v-html="idea.which"></span>
+					<span v-html="idea.what"></span>
+					<span v-html="idea.withWhat"></span>
+					<span v-html="idea.forWhom"></span>
+				</div>
 			</div>
 		</div>
 	</div>

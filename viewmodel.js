@@ -88,6 +88,9 @@ var vm = new Vue({
 		},
 		markIdeaAsBad: function (event) {
 			this.idea = generate(this.ideasCount++);
+		},
+		addLikeToIdea: idea => {
+			// TODO: Implement
 		}
 	}
 });

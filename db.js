@@ -8,6 +8,8 @@
 
   let firebaseInitialized = false;
 
+const listSize = 10;
+
 function initializeFirebase(vm){
 	if (firebaseInitialized) return Promise.resolve(true);
 	firebase.initializeApp(config);
@@ -29,12 +31,12 @@ Object.values = object => Object.keys(object).map(k => object[k]);
 
 function subscribeLastIdeas(vm){
 	let ideasRef = firebase.database().ref('ideas');
-	ideasRef.orderByChild('lastLikeTime').limitToLast(20).on('value', function(snap){
+	ideasRef.orderByChild('lastLikeTime').limitToLast(listSize).on('value', function(snap){
 		let val = snap.val();
 		if (val == null) vm.lastIdeas = [];
 		vm.lastIdeas = Object.values(val).sort((a, b) => b.lastLikeTime - a.lastLikeTime);
 	});
-	ideasRef.orderByChild('likes').limitToLast(20).on('value', function(snap){
+	ideasRef.orderByChild('likes').limitToLast(listSize).on('value', function(snap){
 		let val = snap.val();
 		if (val == null) vm.bestIdeas = [];
 		vm.bestIdeas = Object.values(val).sort((a, b) => b.likes - a.likes);
