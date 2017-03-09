@@ -8,8 +8,9 @@ String.prototype.capitalizeFirstLetter = function () {
 
 let generate = function(i){
 	let generators = [
-		concat({which, what, forWhom}),
-		concat({what, forWhom, withWhat}),
+		concat({which, what, forWhom, withWhat}),
+		// concat({which, what, forWhom}),
+		// concat({what, forWhom, withWhat}),
 	];
 	let parts = postProcess(generators[i%generators.length]());
 	return parts;

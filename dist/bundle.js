@@ -9419,7 +9419,7 @@ String.prototype.capitalizeFirstLetter = function () {
 };
 
 let generate = function (i) {
-	let generators = [concat({ which: __WEBPACK_IMPORTED_MODULE_0__generator__["a" /* which */], what: __WEBPACK_IMPORTED_MODULE_0__generator__["b" /* what */], forWhom: __WEBPACK_IMPORTED_MODULE_0__generator__["c" /* forWhom */] }), concat({ what: __WEBPACK_IMPORTED_MODULE_0__generator__["b" /* what */], forWhom: __WEBPACK_IMPORTED_MODULE_0__generator__["c" /* forWhom */], withWhat: __WEBPACK_IMPORTED_MODULE_0__generator__["d" /* withWhat */] })];
+	let generators = [concat({ which: __WEBPACK_IMPORTED_MODULE_0__generator__["a" /* which */], what: __WEBPACK_IMPORTED_MODULE_0__generator__["b" /* what */], forWhom: __WEBPACK_IMPORTED_MODULE_0__generator__["c" /* forWhom */], withWhat: __WEBPACK_IMPORTED_MODULE_0__generator__["d" /* withWhat */] })];
 	let parts = postProcess(generators[i % generators.length]());
 	return parts;
 };
@@ -9458,12 +9458,22 @@ let data = {
 	ideasCount: 1,
 	idea: generate(1),
 	lastIdeas: null,
-	bestIdeas: null
+	bestIdeas: null,
+	lastIdeasFeedShown: true,
+	bestIdeasFeedShown: false
 };
 
 let vm = new __WEBPACK_IMPORTED_MODULE_2_vue__["a" /* default */]({
 	el: "#root",
 	data: data,
+	computed: {
+		isFeedShown: function () {
+			return this.lastIdeas !== null && this.lastIdeasFeedShown || this.bestIdeas !== null && this.bestIdeasFeedShown;
+		},
+		feed: function () {
+			return this.lastIdeasFeedShown ? this.lastIdeas : this.bestIdeasFeedShown ? this.bestIdeas : [];
+		}
+	},
 	methods: {
 		clickIdea: function (event) {
 			yaCounter43328569.reachGoal("clickIdea", { idea: this.idea, count: this.ideasCount });
@@ -9491,6 +9501,7 @@ let vm = new __WEBPACK_IMPORTED_MODULE_2_vue__["a" /* default */]({
 		markIdeaAsGood: function (event) {
 			__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__db__["a" /* initializeFirebase */])(this).then(_ => __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__db__["b" /* saveLikeToFirebase */])(this.idea)).then(_ => {
 				this.idea = generate(this.ideasCount++);
+				this.showLastIdeasFeed();
 			});
 		},
 		markIdeaAsBad: function (event) {
@@ -9498,6 +9509,14 @@ let vm = new __WEBPACK_IMPORTED_MODULE_2_vue__["a" /* default */]({
 		},
 		addLikeToIdea: function (idea) {
 			__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__db__["a" /* initializeFirebase */])(this).then(_ => __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__db__["b" /* saveLikeToFirebase */])(idea));
+		},
+		showLastIdeasFeed: function () {
+			this.lastIdeasFeedShown = true;
+			this.bestIdeasFeedShown = false;
+		},
+		showBestIdeasFeed: function () {
+			this.bestIdeasFeedShown = true;
+			this.lastIdeasFeedShown = false;
 		}
 	}
 });
