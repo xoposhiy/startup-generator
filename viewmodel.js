@@ -3,8 +3,8 @@ function generate(i){
 		concat({which, what, forWhom}),
 		concat({what, forWhom, withWhat}),
 	];
-	var parts = generators[i%generators.length]();
-	return postProcess(parts);
+	let parts = postProcess(generators[i%generators.length]());
+	return parts;
 }
 
 String.prototype.capitalizeFirstLetter = function () {
@@ -23,12 +23,12 @@ function postProcess(parts){
 		if (parts.which !== undefined)
 			parts.which = makeFemale(parts.which);
 	}
+	parts.fullText = [parts.which, parts.what, parts.withWhat, parts.forWhom].join(' ');
 	return parts;
 }
 
 function concat(parts){
 	return function(){
-		console.log(parts);
 		var res = {};
 		for(let name in parts)
 			res[name] = selectFrom(parts[name]);
@@ -45,12 +45,10 @@ function selectFrom(array){
 
 var data = {
 	ideasCount: 1,
-	idea: generate(1)
+	idea: generate(1),
+	lastIdeas: null,
+	bestIdeas: null
 };
-
-
-
-
 
 var vm = new Vue({
 	el: "#root",
@@ -68,22 +66,23 @@ var vm = new Vue({
 			yaCounter43328569.reachGoal("clickIdea", {idea: this.idea, count: this.ideasCount});
 		},
 		changeWhich: function(event){
-			let whichPart = selectFrom(which);
-			if (this.idea.female) whichPart = makeFemale(whichPart);
-			this.idea.which = whichPart;
+			this.idea.which = selectFrom(which);
+			this.idea = postProcess(this.idea);
 			this.ideasCount++;
 		},
 		changeWhat: function(event){
 			this.idea.what = selectFrom(what);
-			postProcess(this.idea);
+			this.idea = postProcess(this.idea);
 			this.ideasCount++;
 		},
 		changeForWhom: function(event){
 			this.idea.forWhom = selectFrom(forWhom);
+			this.idea = postProcess(this.idea);
 			this.ideasCount++;
 		},
 		changeWithWhat: function(event){
 			this.idea.withWhat = selectFrom(withWhat);
+			this.idea = postProcess(this.idea);
 			this.ideasCount++;
 		},
 		markIdeaAsGood: function (event) {
@@ -98,6 +97,11 @@ var vm = new Vue({
 			// Generate new idea
 			this.idea = generate(this.ideasCount);
 			this.ideasCount++;
-		}
+		},
+		like: function(event) {
+			initializeFirebase(this)
+				.then(_ => saveLikeToFirebase(this.idea))
+				//.then(_ => this.generate(event));
+		},
 	}
 });
