@@ -18,6 +18,7 @@ export function initializeFirebase(vm){
 		firebase.auth().onAuthStateChanged(function(user) 
 		{
 			if (user) {
+				vm.userId = user.uid;
 				subscribeLastIdeas(vm);
 				resolve(true)
 			} else {

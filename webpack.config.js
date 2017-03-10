@@ -5,6 +5,10 @@ module.exports = {
 	output: {
 		filename: "dist/bundle.js"
 	},
+	devServer: {
+	  contentBase: "dist",
+	  port: 9000
+	},
 	plugins: [
 		new webpack.DefinePlugin({
 		  'process.env': {

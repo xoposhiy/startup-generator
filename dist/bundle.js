@@ -92,6 +92,7 @@ function initializeFirebase(vm) {
 	return new Promise((resolve, reject) => {
 		firebase.auth().onAuthStateChanged(function (user) {
 			if (user) {
+				vm.userId = user.uid;
 				subscribeLastIdeas(vm);
 				resolve(true);
 			} else {
@@ -9456,6 +9457,7 @@ let selectFrom = function (array) {
 
 let data = {
 	ideasCount: 1,
+	userId: null,
 	idea: generate(1),
 	lastIdeas: null,
 	bestIdeas: null,

@@ -52,6 +52,7 @@ let selectFrom = function(array){
 
 let data = {
 	ideasCount: 1,
+	userId: null,
 	idea: generate(1),
 	lastIdeas: null,
 	bestIdeas: null,
