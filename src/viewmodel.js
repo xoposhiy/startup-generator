@@ -1,21 +1,26 @@
-function generate(i){
-	let generators = [
-		concat({which, what, forWhom}),
-		concat({what, forWhom, withWhat}),
-	];
-	let parts = postProcess(generators[i%generators.length]());
-	return parts;
-}
+import {which, what, withWhat, forWhom} from './generator';
+import {initializeFirebase, saveLikeToFirebase} from './db';
+import Vue from 'vue';
 
 String.prototype.capitalizeFirstLetter = function () {
 	return this.charAt(0).toUpperCase() + this.slice(1);
 }
 
-function makeFemale(phrase){
+let generate = function(i){
+	let generators = [
+		concat({which, what, forWhom, withWhat}),
+		// concat({which, what, forWhom}),
+		// concat({what, forWhom, withWhat}),
+	];
+	let parts = postProcess(generators[i%generators.length]());
+	return parts;
+}
+
+let makeFemale = function(phrase){
 	return phrase.replace(/(ый|ий) /g, 'ая ').replace(/(ый|ий)$/g, 'ая');
 }
 
-function postProcess(parts){
+let postProcess = function(parts){
 	// женский род
 	if (parts.what.endsWith('!')){
 		parts.female = true;
@@ -29,7 +34,7 @@ function postProcess(parts){
 	return parts;
 }
 
-function concat(parts){
+let concat = function(parts){
 	return function(){
 		var res = {};
 		for(let name in parts)
@@ -38,14 +43,14 @@ function concat(parts){
 	}
 }
 
-function selectFrom(array){
+let selectFrom = function(array){
 	let next = array.shift();
 	array.push(next)
 	return next;
 }
 
 
-var data = {
+let data = {
 	ideasCount: 1,
 	idea: generate(1),
 	lastIdeas: null,
@@ -54,7 +59,7 @@ var data = {
 	bestIdeasFeedShown: false
 };
 
-var vm = new Vue({
+export let vm = new Vue({
 	el: "#root",
 	data: data,
 	computed: {
