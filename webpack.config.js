@@ -1,13 +1,17 @@
 var webpack = require('webpack');
+var path = require('path');
 
 module.exports = {
+	devtool: "source-map",
 	entry: "./src/viewmodel.js",
 	output: {
-		filename: "dist/bundle.js"
+		path: path.join(__dirname, 'dist'),
+		filename: 'bundle.js',
+		publicPath: '/'
 	},
 	devServer: {
-	  contentBase: "dist",
-	  port: 9000
+		contentBase: path.join(__dirname, "dist"),
+		port: 9000
 	},
 	plugins: [
 		new webpack.DefinePlugin({

@@ -8,7 +8,7 @@ String.prototype.capitalizeFirstLetter = function () {
 
 let generate = function(i){
 	let generators = [
-		concat({which, what, forWhom, withWhat}),
+		concat({whichRaw:which, whatRaw:what, forWhom, withWhat}),
 		// concat({which, what, forWhom}),
 		// concat({what, forWhom, withWhat}),
 	];
@@ -22,14 +22,12 @@ let makeFemale = function(phrase){
 
 let postProcess = function(parts){
 	// женский род
-	if (parts.what.endsWith('!')){
-		parts.female = true;
-		parts.what = parts.what.replace('!', '');
-		if (parts.which !== undefined)
-			parts.which = makeFemale(parts.which);
-	}
-	if (parts.which !== undefined) parts.which = parts.which.capitalizeFirstLetter();
-	else parts.what = parts.what.capitalizeFirstLetter();
+	parts.what = parts.whatRaw.replace('!', '');
+	parts.which = parts.whichRaw;
+	let female = parts.whatRaw.endsWith('!');
+	if (female)
+		parts.which = makeFemale(parts.whichRaw);
+	parts.which = parts.which.capitalizeFirstLetter();
 	parts.fullText = [parts.which, parts.what, parts.withWhat, parts.forWhom].join(' ');
 	return parts;
 }
@@ -74,16 +72,13 @@ export let vm = new Vue({
 		}
 	},
 	methods: {
-		clickIdea: function(event){
-			yaCounter43328569.reachGoal("clickIdea", {idea: this.idea, count: this.ideasCount});
-		},
 		changeWhich: function(event){
-			this.idea.which = selectFrom(which);
+			this.idea.whichRaw = selectFrom(which);
 			this.idea = postProcess(this.idea);
 			this.ideasCount++;
 		},
 		changeWhat: function(event){
-			this.idea.what = selectFrom(what);
+			this.idea.whatRaw = selectFrom(what);
 			this.idea = postProcess(this.idea);
 			this.ideasCount++;
 		},

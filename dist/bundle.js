@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 4);
@@ -9420,7 +9420,7 @@ String.prototype.capitalizeFirstLetter = function () {
 };
 
 let generate = function (i) {
-	let generators = [concat({ which: __WEBPACK_IMPORTED_MODULE_0__generator__["a" /* which */], what: __WEBPACK_IMPORTED_MODULE_0__generator__["b" /* what */], forWhom: __WEBPACK_IMPORTED_MODULE_0__generator__["c" /* forWhom */], withWhat: __WEBPACK_IMPORTED_MODULE_0__generator__["d" /* withWhat */] })];
+	let generators = [concat({ whichRaw: __WEBPACK_IMPORTED_MODULE_0__generator__["a" /* which */], whatRaw: __WEBPACK_IMPORTED_MODULE_0__generator__["b" /* what */], forWhom: __WEBPACK_IMPORTED_MODULE_0__generator__["c" /* forWhom */], withWhat: __WEBPACK_IMPORTED_MODULE_0__generator__["d" /* withWhat */] })];
 	let parts = postProcess(generators[i % generators.length]());
 	return parts;
 };
@@ -9431,12 +9431,11 @@ let makeFemale = function (phrase) {
 
 let postProcess = function (parts) {
 	// женский род
-	if (parts.what.endsWith('!')) {
-		parts.female = true;
-		parts.what = parts.what.replace('!', '');
-		if (parts.which !== undefined) parts.which = makeFemale(parts.which);
-	}
-	if (parts.which !== undefined) parts.which = parts.which.capitalizeFirstLetter();else parts.what = parts.what.capitalizeFirstLetter();
+	parts.what = parts.whatRaw.replace('!', '');
+	parts.which = parts.whichRaw;
+	let female = parts.whatRaw.endsWith('!');
+	if (female) parts.which = makeFemale(parts.whichRaw);
+	parts.which = parts.which.capitalizeFirstLetter();
 	parts.fullText = [parts.which, parts.what, parts.withWhat, parts.forWhom].join(' ');
 	return parts;
 };
@@ -9477,16 +9476,13 @@ let vm = new __WEBPACK_IMPORTED_MODULE_2_vue__["a" /* default */]({
 		}
 	},
 	methods: {
-		clickIdea: function (event) {
-			yaCounter43328569.reachGoal("clickIdea", { idea: this.idea, count: this.ideasCount });
-		},
 		changeWhich: function (event) {
-			this.idea.which = selectFrom(__WEBPACK_IMPORTED_MODULE_0__generator__["a" /* which */]);
+			this.idea.whichRaw = selectFrom(__WEBPACK_IMPORTED_MODULE_0__generator__["a" /* which */]);
 			this.idea = postProcess(this.idea);
 			this.ideasCount++;
 		},
 		changeWhat: function (event) {
-			this.idea.what = selectFrom(__WEBPACK_IMPORTED_MODULE_0__generator__["b" /* what */]);
+			this.idea.whatRaw = selectFrom(__WEBPACK_IMPORTED_MODULE_0__generator__["b" /* what */]);
 			this.idea = postProcess(this.idea);
 			this.ideasCount++;
 		},
@@ -9525,3 +9521,4 @@ let vm = new __WEBPACK_IMPORTED_MODULE_2_vue__["a" /* default */]({
 
 /***/ })
 /******/ ]);
+//# sourceMappingURL=bundle.js.map
