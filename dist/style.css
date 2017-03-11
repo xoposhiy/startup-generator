@@ -5,14 +5,22 @@ body {
     font: normal 12pt 'Segoe UI', sans-serif;
     line-height: 1.5em;
 
-    margin: 8em 2em;
+    margin: 6em 2em;
+}
+
+._hidden {
+    cursor: default !important;
+
+    opacity: 0;
+
+    transition: 0.25s;
 }
 
 .content {
     margin: auto;
 
     width: 100%;
-    max-width: 600px;
+    max-width: 800px;
 }
 
 [v-cloak] {
@@ -24,32 +32,46 @@ body {
 }
 
 .idea__likes {
-    background: #fff;
-    box-shadow: 0 0.3em 1em #ddd;
-
+    background: #f6f6f6;
+    border: solid 1px #ddd;
     border-radius: 2em;
 
     cursor: pointer;
 
-    position: absolute;
-    margin-left: -6.5em;
-    margin-top: -0.125em;
-    padding: 0 0.5em 0 1em;
+    font-size: 1em;
+    line-height: 2em;
 
-    width: 3.75em;
+    margin: 1em auto;
+
+    width: 30%;
 
     transition: 0.25s;
 }
 
 .idea__likes:hover {
-    box-shadow: 0 0.3em 1em #bbb;
+    box-shadow: 0 0.1em 0.5em #bbb;
+}
+
+.idea__likes_own {
+    background: inherit;
+    border-color: #eee;
+
+    cursor: default;
+}
+
+.idea__likes_own:hover {
+    box-shadow: none;
 }
 
 .idea__name {
     font-size: 1.75em;
     line-height: 1.5em;
 
-    height: 5em;
+    height: 6em;
+
+    padding: 0 2.5em;
+
+    transition: 0.25s;
 }
 
 .idea__name__part {
@@ -57,112 +79,96 @@ body {
 
     cursor: pointer;
 
-    padding: 0.25em 0 0.4em;
+    padding: 0.25em 0 0.1em;
 
     transition: 0.25s;
 }
 
 .idea__name__part:hover {
     color: #c66;
+
+    border-bottom: dotted 1px #c66;
 }
 
-.idea__buttons {
-    display: flex;
-    flex-direction: row;
-
-    margin: 2em 2em 0;
-}
-
-.idea__buttons__button {
+.idea__button {
     border-radius: 2em;
-    box-shadow: 0 0.3em 1em #ddd;
+    border: solid 1px #ddd;
 
     cursor: pointer;
-
-    flex: 1;
 
     font-size: 1.25em;
     line-height: 3em;
 
-    margin: 0 1em;
+    margin: 1em auto;
 
     transition: 0.25s;
 }
 
-.idea__buttons__button:hover {
-    box-shadow: 0 0.3em 1em #bbb;
+.idea__button:hover {
+    box-shadow: 0 0.1em 0.5em #bbb;
 }
 
-.idea__buttons__button_good {
-    background: #dfd;
+.idea__button_good {
+    background: #f6f6f6;
+
+    width: 25%;
 }
 
-.idea__buttons__button_bad {
-    background: #fdd;
+.idea__button_bad {
+    background: #fff;
+
+    width: 45%;
 }
 
 .feed {
+    display: flex;
+    flex-direction: row;
+
     margin-top: 8em;
-    padding: 0 4em;
+
+    transition: 0.25s;
+}
+
+.feed__column {
+    flex: 1;
 }
 
 .feed .idea {
-    text-align: left;
+    text-align: center;
 
-    margin-bottom: 0.75em;
+    margin: 0 2em;
 }
 
 .feed .idea__name {
     font-size: 1em;
 
-    height: auto;
-    width: 10000px;
+    padding: 0;
 }
 
-.feed__title {
-    display: flex;
-    flex-direction: row;
-
-    margin-bottom: 1.5em;
-}
-
-.feed__title__switch {
-    border: solid 1px #eee;
-    border-radius: 2em;
-
-    cursor: pointer;
-
+.feed__column__title {
     color: #666;
 
     font-size: 0.8em;
-    text-transform: uppercase;
     letter-spacing: 0.05em;
+    text-align: center;
+    text-transform: uppercase;
 
-    margin-right: 1em;
-    padding: 0.75em 1.5em;
-
-    transition: 0.25s;
-}
-
-.feed__title__switch_active {
-    border: solid 1px #ccc;
-
-    transition: 0.25s;
+    margin-bottom: 2em;
 }
 
 .emoji {
     display: inline-block;
     position: relative;
     top: 0.25em;
-    right: 0.25em;
+    right: 0.4em;
     height: 1.25em;
     width: 1.25em;
 }
 
-.emoji_rocket {
-    background: url("https://twemoji.maxcdn.com/2/svg/1f680.svg") no-repeat center center;
+.emoji_like {
+    background: url("https://twemoji.maxcdn.com/2/svg/2764.svg") no-repeat center center;
 }
 
-.emoji_game-die {
-    background: url("https://twemoji.maxcdn.com/2/svg/1f62d.svg") no-repeat center center;
+.emoji_dislike {
+    background: url("https://twemoji.maxcdn.com/2/svg/26a1.svg") no-repeat center center;
 }

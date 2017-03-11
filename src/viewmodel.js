@@ -52,10 +52,10 @@ let data = {
 	ideasCount: 1,
 	userId: null,
 	idea: generate(1),
+	isIdeaShown: true,
+	isIdeaLiked: false,
 	lastIdeas: null,
-	bestIdeas: null,
-	lastIdeasFeedShown: true,
-	bestIdeasFeedShown: false
+	bestIdeas: null
 };
 
 export let vm = new Vue({
@@ -63,12 +63,7 @@ export let vm = new Vue({
 	data: data,
 	computed: {
 		isFeedShown: function() {
-			return this.lastIdeas !== null && this.lastIdeasFeedShown
-				|| this.bestIdeas !== null && this.bestIdeasFeedShown;
-		},
-		feed: function() {
-			return this.lastIdeasFeedShown ? this.lastIdeas
-			     : this.bestIdeasFeedShown ? this.bestIdeas : [];
+			return this.lastIdeas !== null || this.bestIdeas !== null;
 		}
 	},
 	methods: {
@@ -76,44 +71,45 @@ export let vm = new Vue({
 			this.idea.whichRaw = selectFrom(which);
 			this.idea = postProcess(this.idea);
 			this.ideasCount++;
+			this.isIdeaLiked = false;
 		},
 		changeWhat: function(event){
 			this.idea.whatRaw = selectFrom(what);
 			this.idea = postProcess(this.idea);
 			this.ideasCount++;
+			this.isIdeaLiked = false;
 		},
 		changeForWhom: function(event){
 			this.idea.forWhom = selectFrom(forWhom);
 			this.idea = postProcess(this.idea);
 			this.ideasCount++;
+			this.isIdeaLiked = false;
 		},
 		changeWithWhat: function(event){
 			this.idea.withWhat = selectFrom(withWhat);
 			this.idea = postProcess(this.idea);
 			this.ideasCount++;
+			this.isIdeaLiked = false;
 		},
 		markIdeaAsGood: function (event) {
 			initializeFirebase(this)
-				.then(_ => saveLikeToFirebase(this.idea))
-				.then(_ => {
-					this.idea = generate(this.ideasCount++);
-					this.showLastIdeasFeed();
-				});
+				.then(() => this.isIdeaLiked = true)
+				.then(_ => saveLikeToFirebase(this.idea));
 		},
 		markIdeaAsBad: function (event) {
-			this.idea = generate(this.ideasCount++);
+			this.isIdeaShown = false;
+
+			setTimeout(() => {
+				this.idea = generate(this.ideasCount++);
+				this.isIdeaShown = true;
+				this.isIdeaLiked = false;
+			}, 250);
 		},
 		addLikeToIdea: function(idea) {
 			initializeFirebase(this)
 				.then(_ => saveLikeToFirebase(idea))
 		},
-		showLastIdeasFeed: function() {
-			this.lastIdeasFeedShown = true;
-			this.bestIdeasFeedShown = false;
-		},
-		showBestIdeasFeed: function() {
-			this.bestIdeasFeedShown = true;
-			this.lastIdeasFeedShown = false;
-		}
+		hasOwnLike: idea => idea.likers
+			.reduce((has, liker) => has || liker === data.userId, false)
 	}
 });

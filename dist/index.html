@@ -15,36 +15,47 @@
 <body>
 	<div class="content" id="root" v-cloak>
 		<div class="idea">
-			<div class="idea__name">
+			<div v-on:click="markIdeaAsGood" class="idea__button idea__button_good" v-bind:class="{ '_hidden': isIdeaLiked }">
+				<span class="emoji emoji_like"></span>Лайк!
+			</div>
+			<div class="idea__name" v-bind:class="{ '_hidden': !isIdeaShown }">
 				<div class="idea__name__part" v-on:click="changeWhich" v-html="idea.which"></div>
 				<div class="idea__name__part" v-on:click="changeWhat" v-html="idea.what"></div>
 				<div class="idea__name__part" v-on:click="changeWithWhat" v-html="idea.withWhat"></div>
 				<div class="idea__name__part" v-on:click="changeForWhom" v-html="idea.forWhom"></div>
 			</div>
-			<div class="idea__buttons">
-				<div v-on:click="markIdeaAsGood" class="idea__buttons__button idea__buttons__button_good">
-					<span class="emoji emoji_rocket"></span>Взлетит!
-				</div>
-				<div v-on:click="markIdeaAsBad" class="idea__buttons__button idea__buttons__button_bad">
-					<span class="emoji emoji_game-die"></span>Не взлетит!
-				</div>
+			<div v-on:click="markIdeaAsBad" class="idea__button idea__button_bad">
+				<span class="emoji emoji_dislike"></span>Ещё идею!
 			</div>
 		</div>
 
-		<div class="feed">
-			<div class="feed__title" v-if="isFeedShown">
-				<div class="feed__title__switch" v-on:click="showLastIdeasFeed()" v-bind:class="{ 'feed__title__switch_active': lastIdeasFeedShown }">Последние идеи</div>
-				<div class="feed__title__switch" v-on:click="showBestIdeasFeed()" v-bind:class="{ 'feed__title__switch_active': bestIdeasFeedShown }">Лучшие идеи</div>
-			</div>
-			<div class="idea" v-for="idea in feed">
-				<div class="idea__likes" v-on:click="addLikeToIdea(idea)">
-					<span class="emoji emoji_rocket"></span><span v-if="idea.likes>1">×&thinsp;{{idea.likes}}</span>
+		<div class="feed" v-bind:class="{ '_hidden': !isFeedShown }">
+			<div class="feed__column">
+				<div class="feed__column__title">Последние идеи</div>
+				<div class="idea" v-for="idea in lastIdeas">
+					<div class="idea__likes" v-bind:class="{ 'idea__likes_own': hasOwnLike(idea) }" v-on:click="addLikeToIdea(idea)">
+						<span class="emoji emoji_like"></span>×&thinsp;{{idea.likes}}
+					</div>
+					<div class="idea__name">
+						<span v-html="idea.which"></span>
+						<span v-html="idea.what"></span>
+						<span v-html="idea.withWhat"></span>
+						<span v-html="idea.forWhom"></span>
+					</div>
 				</div>
-				<div class="idea__name">
-					<span v-html="idea.which"></span>
-					<span v-html="idea.what"></span>
-					<span v-html="idea.withWhat"></span>
-					<span v-html="idea.forWhom"></span>
+			</div>
+			<div class="feed__column">
+				<div class="feed__column__title">Лучшие идеи</div>
+				<div class="idea" v-for="idea in bestIdeas">
+					<div class="idea__likes" v-bind:class="{ 'idea__likes_own': hasOwnLike(idea) }" v-on:click="addLikeToIdea(idea)">
+						<span class="emoji emoji_like"></span>×&thinsp;{{idea.likes}}
+					</div>
+					<div class="idea__name">
+						<span v-html="idea.which"></span>
+						<span v-html="idea.what"></span>
+						<span v-html="idea.withWhat"></span>
+						<span v-html="idea.forWhom"></span>
+					</div>
 				</div>
 			</div>
 		</div>
