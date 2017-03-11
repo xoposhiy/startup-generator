@@ -9458,10 +9458,10 @@ let data = {
 	ideasCount: 1,
 	userId: null,
 	idea: generate(1),
+	isIdeaShown: true,
+	isIdeaLiked: false,
 	lastIdeas: null,
-	bestIdeas: null,
-	lastIdeasFeedShown: true,
-	bestIdeasFeedShown: false
+	bestIdeas: null
 };
 
 let vm = new __WEBPACK_IMPORTED_MODULE_2_vue__["a" /* default */]({
@@ -9469,10 +9469,7 @@ let vm = new __WEBPACK_IMPORTED_MODULE_2_vue__["a" /* default */]({
 	data: data,
 	computed: {
 		isFeedShown: function () {
-			return this.lastIdeas !== null && this.lastIdeasFeedShown || this.bestIdeas !== null && this.bestIdeasFeedShown;
-		},
-		feed: function () {
-			return this.lastIdeasFeedShown ? this.lastIdeas : this.bestIdeasFeedShown ? this.bestIdeas : [];
+			return this.lastIdeas !== null || this.bestIdeas !== null;
 		}
 	},
 	methods: {
@@ -9480,42 +9477,42 @@ let vm = new __WEBPACK_IMPORTED_MODULE_2_vue__["a" /* default */]({
 			this.idea.whichRaw = selectFrom(__WEBPACK_IMPORTED_MODULE_0__generator__["a" /* which */]);
 			this.idea = postProcess(this.idea);
 			this.ideasCount++;
+			this.isIdeaLiked = false;
 		},
 		changeWhat: function (event) {
 			this.idea.whatRaw = selectFrom(__WEBPACK_IMPORTED_MODULE_0__generator__["b" /* what */]);
 			this.idea = postProcess(this.idea);
 			this.ideasCount++;
+			this.isIdeaLiked = false;
 		},
 		changeForWhom: function (event) {
 			this.idea.forWhom = selectFrom(__WEBPACK_IMPORTED_MODULE_0__generator__["c" /* forWhom */]);
 			this.idea = postProcess(this.idea);
 			this.ideasCount++;
+			this.isIdeaLiked = false;
 		},
 		changeWithWhat: function (event) {
 			this.idea.withWhat = selectFrom(__WEBPACK_IMPORTED_MODULE_0__generator__["d" /* withWhat */]);
 			this.idea = postProcess(this.idea);
 			this.ideasCount++;
+			this.isIdeaLiked = false;
 		},
 		markIdeaAsGood: function (event) {
-			__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__db__["a" /* initializeFirebase */])(this).then(_ => __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__db__["b" /* saveLikeToFirebase */])(this.idea)).then(_ => {
-				this.idea = generate(this.ideasCount++);
-				this.showLastIdeasFeed();
-			});
+			__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__db__["a" /* initializeFirebase */])(this).then(() => this.isIdeaLiked = true).then(_ => __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__db__["b" /* saveLikeToFirebase */])(this.idea));
 		},
 		markIdeaAsBad: function (event) {
-			this.idea = generate(this.ideasCount++);
+			this.isIdeaShown = false;
+
+			setTimeout(() => {
+				this.idea = generate(this.ideasCount++);
+				this.isIdeaShown = true;
+				this.isIdeaLiked = false;
+			}, 250);
 		},
 		addLikeToIdea: function (idea) {
 			__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__db__["a" /* initializeFirebase */])(this).then(_ => __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__db__["b" /* saveLikeToFirebase */])(idea));
 		},
-		showLastIdeasFeed: function () {
-			this.lastIdeasFeedShown = true;
-			this.bestIdeasFeedShown = false;
-		},
-		showBestIdeasFeed: function () {
-			this.bestIdeasFeedShown = true;
-			this.lastIdeasFeedShown = false;
-		}
+		hasOwnLike: idea => idea.likers.reduce((has, liker) => has || liker === data.userId, false)
 	}
 });
 
