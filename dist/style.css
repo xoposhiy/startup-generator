@@ -5,7 +5,7 @@ body {
     font: normal 12pt 'Segoe UI', sans-serif;
     line-height: 1.5em;
 
-    margin: 6em 2em;
+    margin: 10vh 2em;
 }
 
 ._hidden {
@@ -124,7 +124,7 @@ body {
     display: flex;
     flex-direction: row;
 
-    margin-top: 8em;
+    margin-top: 12.5vh;
 
     transition: 0.25s;
 }
