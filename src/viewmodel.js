@@ -58,6 +58,8 @@ let data = {
 	bestIdeas: null
 };
 
+initializeFirebase(this);
+
 export let vm = new Vue({
 	el: "#root",
 	data: data,
