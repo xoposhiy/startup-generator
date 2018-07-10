@@ -58,8 +58,6 @@ let data = {
 	bestIdeas: null
 };
 
-initializeFirebase(this);
-
 export let vm = new Vue({
 	el: "#root",
 	data: data,
@@ -115,3 +113,5 @@ export let vm = new Vue({
 			.reduce((has, liker) => has || liker === data.userId, false)
 	}
 });
+
+initializeFirebase(vm);

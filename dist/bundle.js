@@ -9464,8 +9464,6 @@ let data = {
 	bestIdeas: null
 };
 
-__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__db__["a" /* initializeFirebase */])(this);
-
 let vm = new __WEBPACK_IMPORTED_MODULE_2_vue__["a" /* default */]({
 	el: "#root",
 	data: data,
@@ -9517,6 +9515,8 @@ let vm = new __WEBPACK_IMPORTED_MODULE_2_vue__["a" /* default */]({
 		hasOwnLike: idea => idea.likers.reduce((has, liker) => has || liker === data.userId, false)
 	}
 });
+
+__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__db__["a" /* initializeFirebase */])(vm);
 
 /***/ })
 /******/ ]);
